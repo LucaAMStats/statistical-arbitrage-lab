@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Statistical Arbitrage Lab — a reproducible equity pairs-trading research project.">
+  <title>Statistical Arbitrage Lab | Quant Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#top"><span class="brand-mark">Σ</span><span>STAT ARB<span class="muted"> / LAB</span></span></a>
+      <div class="side-label">RESEARCH WORKSPACE</div>
+      <nav>
+        <a class="active" href="#overview"><span>◫</span> Overview</a>
+        <a href="#methodology"><span>⌁</span> Methodology</a>
+        <a href="#signals"><span>⌗</span> Pair signals</a>
+        <a href="#backtest"><span>↗</span> Backtest</a>
+        <a href="#implementation"><span>⌘</span> Implementation</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="live-dot"></div><span>RESEARCH BUILD · 0.1.0</span>
+        <a class="github-link" href="https://github.com/" target="_blank" rel="noreferrer">GitHub repository ↗</a>
+      </div>
+    </aside>
+
+    <main id="top">
+      <header class="topbar">
+        <div><span class="eyebrow">QUANTITATIVE RESEARCH / EQUITIES</span><span class="topbar-date"> · RESEARCH NOTE 001</span></div>
+        <div class="status"><span class="live-dot"></span> MODEL CONCEPT</div>
+      </header>
+
+      <section class="hero" id="overview">
+        <div class="hero-copy">
+          <div class="kicker"><span class="kicker-line"></span> SYSTEMATIC STRATEGIES</div>
+          <h1>Finding the signal<br>in <em>relative value.</em></h1>
+          <p class="hero-text">A reproducible research framework for identifying, testing and monitoring potential equity pairs-trading opportunities using cointegration and mean-reverting spread dynamics.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#methodology">Explore the research <span>↘</span></a>
+            <a class="btn secondary" href="https://github.com/" target="_blank" rel="noreferrer">View source code ↗</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="visual-head"><span>SPREAD DYNAMICS</span><span class="mono">ILLUSTRATIVE</span></div>
+          <svg viewBox="0 0 540 250" role="img" aria-label="Illustrative mean-reverting spread chart">
+            <defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#7ce0c3" stop-opacity=".23"/><stop offset="1" stop-color="#7ce0c3" stop-opacity="0"/></linearGradient></defs>
+            <g class="gridlines"><path d="M30 35H520 M30 80H520 M30 125H520 M30 170H520 M30 215H520"/></g>
+            <path d="M30 125H520" class="meanline"/>
+            <path d="M30 80H520 M30 170H520" class="bandline"/>
+            <path d="M30 125 L50 111 L68 95 L87 108 L105 144 L124 165 L143 151 L162 126 L181 104 L200 85 L219 101 L238 130 L257 147 L276 133 L295 119 L314 99 L333 76 L352 93 L371 123 L390 145 L409 160 L428 142 L447 119 L466 104 L485 117 L504 128 L520 124 L520 215 L30 215Z" fill="url(#area)"/>
+            <path d="M30 125 L50 111 L68 95 L87 108 L105 144 L124 165 L143 151 L162 126 L181 104 L200 85 L219 101 L238 130 L257 147 L276 133 L295 119 L314 99 L333 76 L352 93 L371 123 L390 145 L409 160 L428 142 L447 119 L466 104 L485 117 L504 128 L520 124" class="spreadline"/>
+            <g class="axis"><text x="4" y="39">+2σ</text><text x="4" y="84">+1σ</text><text x="10" y="129">0</text><text x="4" y="174">−1σ</text><text x="4" y="219">−2σ</text><text x="30" y="240">T−60</text><text x="490" y="240">NOW</text></g>
+          </svg>
+          <div class="visual-foot"><span>SPREAD Z-SCORE</span><span class="accent">MEAN REVERSION HYPOTHESIS</span></div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><span class="eyebrow">01 / RESEARCH SNAPSHOT</span><h2>Strategy at a glance</h2></div><span class="subtle mono">FRAMEWORK STATUS: IN DEVELOPMENT</span></div>
+        <div class="metrics">
+          <article class="metric-card"><span class="metric-label">UNIVERSE</span><strong>US equities</strong><span class="metric-note">Liquid, sector-aware candidates</span></article>
+          <article class="metric-card"><span class="metric-label">CORE METHOD</span><strong>Cointegration</strong><span class="metric-note">Engle–Granger two-step test</span></article>
+          <article class="metric-card"><span class="metric-label">SIGNAL</span><strong>Spread Z-score</strong><span class="metric-note">Standardised residual process</span></article>
+          <article class="metric-card"><span class="metric-label">EXECUTION</span><strong>Market-neutral</strong><span class="metric-note">Long / short pair exposure</span></article>
+        </div>
+      </section>
+
+      <section class="content-section" id="methodology">
+        <div class="section-heading"><div><span class="eyebrow">02 / RESEARCH DESIGN</span><h2>From candidate to trade</h2></div></div>
+        <div class="method-grid">
+          <article class="method-card"><span class="step">01</span><div class="method-icon">⌕</div><h3>Universe & screening</h3><p>Start with liquid equities. Group by sector and screen for sufficient history, price correlation and stable data quality.</p><span class="tag">DATA ENGINEERING</span></article>
+          <article class="method-card"><span class="step">02</span><div class="method-icon">∿</div><h3>Cointegration testing</h3><p>Estimate a hedge ratio on a training window, then test the residual spread for stationarity with the Engle–Granger procedure.</p><span class="tag">STATISTICAL TESTING</span></article>
+          <article class="method-card"><span class="step">03</span><div class="method-icon">⌁</div><h3>Spread modelling</h3><p>Calculate a standardised spread, monitor its rolling behaviour and define entry, exit and stop conditions before testing.</p><span class="tag">SIGNAL GENERATION</span></article>
+          <article class="method-card"><span class="step">04</span><div class="method-icon">↗</div><h3>Out-of-sample backtest</h3><p>Use lagged positions, realistic transaction-cost assumptions and a holdout period to reduce look-ahead and selection bias.</p><span class="tag">MODEL VALIDATION</span></article>
+        </div>
+      </section>
+
+      <section class="content-section" id="signals">
+        <div class="section-heading"><div><span class="eyebrow">03 / OPPORTUNITY MONITOR</span><h2>Example pair watchlist</h2></div><span class="subtle">SYNTHETIC DEMONSTRATION DATA</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>PAIR</th><th>SECTOR</th><th>COINT. P-VALUE</th><th>SPREAD Z</th><th>STATUS</th></tr></thead>
+            <tbody>
+              <tr><td class="pair">KO / PEP</td><td>Consumer staples</td><td class="mono">0.018</td><td class="mono negative">−2.14</td><td><span class="pill watch">WATCH</span></td></tr>
+              <tr><td class="pair">XOM / CVX</td><td>Energy</td><td class="mono">0.031</td><td class="mono positive">+1.62</td><td><span class="pill neutral">NO TRADE</span></td></tr>
+              <tr><td class="pair">V / MA</td><td>Financials</td><td class="mono">0.006</td><td class="mono negative">−0.48</td><td><span class="pill neutral">NO TRADE</span></td></tr>
+              <tr><td class="pair">HD / LOW</td><td>Consumer discretionary</td><td class="mono">0.044</td><td class="mono positive">+2.27</td><td><span class="pill watch">WATCH</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="disclaimer">These rows are illustrative placeholders, not measured market results or current trade recommendations. The Python pipeline calculates candidate statistics from downloaded historical data.</p>
+      </section>
+
+      <section class="content-section" id="backtest">
+        <div class="section-heading"><div><span class="eyebrow">04 / PERFORMANCE ANALYSIS</span><h2>Backtest architecture</h2></div><span class="subtle">ILLUSTRATIVE SERIES · NOT ACTUAL RETURNS</span></div>
+        <div class="chart-panel">
+          <div class="chart-meta"><div><span class="metric-label">CUMULATIVE EQUITY CURVE</span><strong>Example output</strong></div><div class="chart-legend"><span><i class="legend-line"></i> Strategy</span><span><i class="legend-line grey"></i> Flat baseline</span></div></div>
+          <div class="chart-box"><canvas id="equityChart" aria-label="Illustrative strategy equity curve"></canvas></div>
+          <div class="chart-foot"><span>INDEXED TO 1.00</span><span>SIMULATED PATH FOR UI PREVIEW ONLY</span></div>
+        </div>
+        <div class="validation-grid">
+          <div><strong>Walk-forward design</strong><p>Fit hedge ratios and thresholds using historical training data only. Refit on a defined schedule.</p></div>
+          <div><strong>Trading frictions</strong><p>Deduct commissions, spread/slippage and borrow costs. Stress-test turnover and execution assumptions.</p></div>
+          <div><strong>Risk diagnostics</strong><p>Track drawdown, volatility, Sharpe, exposure, turnover, holding period and pair-level contribution.</p></div>
+        </div>
+      </section>
+
+      <section class="content-section" id="implementation">
+        <div class="section-heading"><div><span class="eyebrow">05 / REPRODUCIBILITY</span><h2>Research repository</h2></div></div>
+        <div class="repo-panel">
+          <div class="repo-top"><div class="repo-icon">⌘</div><div><strong>statistical-arbitrage-lab</strong><span>Python research pipeline · GitHub Pages front end</span></div><span class="repo-badge">PUBLIC PROJECT TEMPLATE</span></div>
+          <div class="repo-files">
+            <div><span>▸</span> src/data.py <small>Historical price retrieval</small></div>
+            <div><span>▸</span> src/pairs.py <small>Pair screening & cointegration</small></div>
+            <div><span>▸</span> src/backtest.py <small>Signal and portfolio simulation</small></div>
+            <div><span>▸</span> src/run_research.py <small>End-to-end research runner</small></div>
+            <div><span>▸</span> requirements.txt <small>Reproducible dependencies</small></div>
+            <div><span>▸</span> README.md <small>Setup, assumptions & limitations</small></div>
+          </div>
+          <a class="btn primary repo-cta" href="https://github.com/" target="_blank" rel="noreferrer">Open GitHub <span>↗</span></a>
+        </div>
+        <div class="next-steps"><span class="eyebrow">NEXT RESEARCH ITERATIONS</span><div><span>01</span> Add sector and liquidity filters</div><div><span>02</span> Compare Engle–Granger with Johansen testing</div><div><span>03</span> Add rolling hedge ratios and structural-break checks</div><div><span>04</span> Extend to portfolio-level capital and risk allocation</div></div>
+      </section>
+
+      <footer><span>STATISTICAL ARBITRAGE LAB</span><span>INDEPENDENT QUANTITATIVE RESEARCH · 2026</span></footer>
+    </main>
+  </div>
+  <script src="assets/site.js"></script>
+</body>
+</html>
